@@ -30,17 +30,12 @@ resource "docker_container" "nodered_container" {
   }
 }
 
-output "IP-Address" {
-  value       = join(":", [docker_container.nodered_container[0].ip_address, docker_container.nodered_container[0].ports[0].external])
-  description = "The IP addressand external port of the first container"
-}
-
 output "container-name" {
   value       = docker_container.nodered_container[*].name
-  description = "The name of the first container"
+  description = "The names of the containers"
 }
 
-output "IP-Address-2" {
-  value       = join(":", [docker_container.nodered_container[1].ip_address, docker_container.nodered_container[1].ports[0].external])
+output "IP-Address" {
+  value       = [for i in docker_container.nodered_container[*] : join(":", [i.ip_address], i.ports[*]["external"])]
   description = "The IP addressand external port of the container"
 }
