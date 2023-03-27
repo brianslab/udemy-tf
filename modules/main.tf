@@ -2,7 +2,7 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "~> 2.15.0"
+      version = "~> 2.21.0"
     }
   }
 }
@@ -28,7 +28,7 @@ resource "random_string" "random" {
 resource "docker_container" "nodered_container" {
   count = local.container_count
   name  = join("-", ["nodered", random_string.random[count.index].result])
-  image = docker_image.nodered_image.latest
+  image = docker_image.nodered_image.image_id
   ports {
     internal = var.int_port
     external = var.ext_port[count.index]
