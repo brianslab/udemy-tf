@@ -1,14 +1,3 @@
-terraform {
-  required_providers {
-    docker = {
-      source  = "kreuzwerker/docker"
-      version = "~> 2.21.0"
-    }
-  }
-}
-
-provider "docker" {}
-
 resource "null_resource" "dockervol" {
   provisioner "local-exec" {
     command = "mkdir noderedvol || true && sudo chown -R 1000:1000 noderedvol"
