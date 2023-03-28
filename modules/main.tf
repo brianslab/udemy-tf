@@ -4,8 +4,8 @@ resource "null_resource" "dockervol" {
   }
 }
 
-resource "docker_image" "nodered_image" {
-  name = var.image[terraform.workspace]
+module "image" {
+  source = "./image"
 }
 
 resource "random_string" "random" {
@@ -17,7 +17,7 @@ resource "random_string" "random" {
 resource "docker_container" "nodered_container" {
   count = local.container_count
   name  = join("-", ["nodered", terraform.workspace, random_string.random[count.index].result])
-  image = docker_image.nodered_image.image_id
+  image = module.image.image_out
   ports {
     internal = var.int_port
     external = var.ext_port[terraform.workspace][count.index]
