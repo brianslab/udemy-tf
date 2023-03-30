@@ -1,0 +1,4 @@
+influxdb-dev-LGwd: 172.17.0.2:8187
+nodered-dev-dcNC: 172.17.0.3:1980
+grafana-dev-QK5S: 172.17.0.4:13100
+influxdb-dev-U50f: 172.17.0.5:8186
